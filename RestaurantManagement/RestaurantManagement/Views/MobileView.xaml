@@ -130,12 +130,12 @@
         </Grid>
 
         <!-- Orders Table -->
-        <Border Grid.Row="4" BackgroundColor="#E8F9F9" Padding="15" 
+        <Border Grid.Row="4" BackgroundColor="#E8F9F9" Padding="12" 
                     StrokeThickness="0" StrokeShape="RoundRectangle 10">
             <Grid RowDefinitions="Auto,*">
                 <Label Text="Order Details" FontSize="15" TextColor="#4c554d" FontFamily="NataSans" />
 
-                <CollectionView Grid.Row="1" ItemsSource="{Binding OrdersData}"  Margin="4" VerticalScrollBarVisibility="Never"
+                <CollectionView Grid.Row="1" ItemsSource="{Binding OrdersData}" Margin="4" VerticalScrollBarVisibility="Never"
                                 VerticalOptions="Fill" SelectionMode="None">
 
                     <CollectionView.Header>

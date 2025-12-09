@@ -136,7 +136,7 @@
             </Grid>
 
             <!-- Orders Table -->
-            <Border Grid.Column="1" BackgroundColor="#E8F9F9" Padding="15" 
+            <Border Grid.Column="1" BackgroundColor="#E8F9F9" Padding="12" 
                   StrokeThickness="0" StrokeShape="RoundRectangle 10">
                 <Grid RowDefinitions="Auto,*">
                     <Label Text="Order Details" FontSize="18" TextColor="#4c554d" FontFamily="NataSans" />
