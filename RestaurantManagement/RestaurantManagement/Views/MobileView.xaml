@@ -28,7 +28,7 @@
                 <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
                     <Label Text="Service Progress" FontSize="15" TextColor="#4c554d" FontFamily="NataSans"/>
 
-                    <gauge:SfRadialGauge x:Name="distanceTrackerGauge" Grid.Row="1" Margin="0,0,0,10" BackgroundColor="#E5F5EA" 
+                    <gauge:SfRadialGauge x:Name="distanceTrackerGauge" Grid.Row="1" Margin="0,0,0,25" BackgroundColor="#E5F5EA" 
                             HorizontalOptions="Center">
                         <gauge:SfRadialGauge.Axes>
                             <gauge:RadialAxis Minimum="0" Maximum="{Binding OrdersRowsCount}" ShowTicks="False"
