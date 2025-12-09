@@ -28,6 +28,7 @@ Today we are going to visualize four compact trends that provide quick insights 
 -	Average Prep Time (mins): Shown as a Spark Area chart to highlight the magnitude of changes.
 -	Delivery Success (Win/Loss): Illustrated with a Win/Loss series where +1 indicates success and −1 indicates an issue.
 
+<img width="1918" height="976" alt="Final demo" src="https://github.com/user-attachments/assets/07a014d4-9879-44af-a187-2daa6577582b" />
 
 ## Troubleshooting
 ### Path Too Long Exception
