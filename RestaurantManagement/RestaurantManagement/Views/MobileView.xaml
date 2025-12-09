@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gauge="clr-namespace:Syncfusion.Maui.Gauges;assembly=Syncfusion.Maui.Gauges"
+             xmlns:sparkchart="clr-namespace:Syncfusion.Maui.Toolkit.SparkCharts;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:local="clr-namespace:RestaurantManagement"
+             x:Class="RestaurantManagement.MobileView">
+
+    <ContentPage.BindingContext>
+        <local:DashboardViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="0.5*,2.25*,2*,2*,3.25*" Padding="5" RowSpacing="5" Background="#8BD9CC">
+
+        <HorizontalStackLayout  Grid.Row="0" HorizontalOptions="Center">
+            <Image Source="header.png" HeightRequest="30" WidthRequest="40" Margin="0,0,5,0"/>
+            <Label Text="Welcome to FlavorFiesta...!" FontSize="16" FontFamily="DeliusUnicase"
+      FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center"/>
+
+            <ImageButton Source="open.png" x:Name="time" HeightRequest="10" WidthRequest="10" Margin="20,10,5,0" 
+            Clicked="ImageButton_Clicked" Background="Transparent"/>
+        </HorizontalStackLayout>
+
+        <Grid Grid.Row="1" ColumnDefinitions="7*,3*" ColumnSpacing="5">
+
+            <!-- Gauge Panel -->
+            <Border Grid.Column="0" BackgroundColor="#E5F5EA" Padding="5" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
+                    <Label Text="Service Progress" FontSize="15" TextColor="#4c554d" FontFamily="NataSans"/>
+
+                    <gauge:SfRadialGauge x:Name="distanceTrackerGauge" Grid.Row="1" Margin="0,0,0,10" BackgroundColor="#E5F5EA" 
+                            HorizontalOptions="Center">
+                        <gauge:SfRadialGauge.Axes>
+                            <gauge:RadialAxis Minimum="0" Maximum="{Binding OrdersRowsCount}" ShowTicks="False"
+                                 ShowLabels="False" EnableLoadingAnimation="True" AnimationDuration="2000">
+
+                                <gauge:RadialAxis.AxisLineStyle>
+                                    <gauge:RadialLineStyle Fill="#77CEC4" Thickness="8"/>
+                                </gauge:RadialAxis.AxisLineStyle>
+
+                                <gauge:RadialAxis.Annotations>
+                                    <gauge:GaugeAnnotation >
+                                        <gauge:GaugeAnnotation.Content>
+                                            <Label Text="{Binding PendingRowsCount}" FontSize="15" HorizontalTextAlignment="Center"
+                                              TextColor="#4c554d" FontFamily="NataSans"/>
+                                        </gauge:GaugeAnnotation.Content>
+                                    </gauge:GaugeAnnotation>
+
+                                    <gauge:GaugeAnnotation DirectionValue="124" PositionFactor="1" HorizontalAlignment="Start" VerticalAlignment="End">
+                                        <gauge:GaugeAnnotation.Content>
+                                            <Label Text="0" TextColor="#4c554d" FontFamily="NataSans" FontSize="12"/>
+                                        </gauge:GaugeAnnotation.Content>
+                                    </gauge:GaugeAnnotation>
+
+                                    <gauge:GaugeAnnotation DirectionValue="58" PositionFactor="1" HorizontalAlignment="Start" VerticalAlignment="End">
+                                        <gauge:GaugeAnnotation.Content>
+                                            <Label Text="{Binding OrdersRowsCount}" TextColor="#4c554d" FontFamily="NataSans" FontSize="12"/>
+                                        </gauge:GaugeAnnotation.Content>
+                                    </gauge:GaugeAnnotation>
+                                </gauge:RadialAxis.Annotations>
+
+                                <gauge:RadialAxis.Pointers>
+                                    <gauge:RangePointer Value="{Binding DeliveriesRowsCount}" PointerWidth="30" PointerOffset="-12" CornerStyle="BothCurve">
+                                        <gauge:RangePointer.GradientStops>
+                                            <gauge:GaugeGradientStop Value="{Binding GradientStart}" Color="#025D83" />
+                                            <gauge:GaugeGradientStop Value="{Binding GradientEnd}" Color="#0091cf" />
+                                        </gauge:RangePointer.GradientStops>
+                                    </gauge:RangePointer>
+                                    <gauge:ShapePointer Value="{Binding DeliveriesRowsCount}" ShapeType="Circle" Fill="White" />
+                                </gauge:RadialAxis.Pointers>
+                            </gauge:RadialAxis>
+                        </gauge:SfRadialGauge.Axes>
+                    </gauge:SfRadialGauge>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1" RowDefinitions="3*,7*">
+
+                <Picker Grid.Row="0" TextColor="#4c554d" ItemsSource="{Binding TimeFilters}" Background="#dff4ff" Margin="5,10,5,0"
+                    SelectedItem="{Binding SelectedFilter}" WidthRequest="90" FontSize="13" />
+
+                <Image Grid.Row="1" Source="cooking.png" WidthRequest="60" HeightRequest="90"/>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="5">
+
+            <!-- Orders -->
+            <Border Grid.Column="0" BackgroundColor="#E5F5EA" Padding="10" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                <Grid RowDefinitions="Auto,Auto,Auto,*" RowSpacing="8">
+                    <Label Text="Orders" FontSize="15" TextColor="#4c554d" FontFamily="NataSans" />
+                    <Label Grid.Row="1" Text="{Binding OrdersRowsCount}" TextColor="#4c554d" FontSize="17" FontFamily="NataSans" />
+                    <sparkchart:SfSparkLineChart Grid.Row="3" Stroke="#6CAA9C" StrokeWidth="2" ItemsSource="{Binding OrdersData}"
+                                     YBindingPath="Orders"/>
+                </Grid>
+            </Border>
+
+            <!-- Kitchen Load -->
+            <Border Grid.Column="1" BackgroundColor="#E5F5EA" Padding="10" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                <Grid RowDefinitions="Auto,Auto,Auto,*" RowSpacing="8">
+                    <Label Text="Kitchen Load" FontSize="15" TextColor="#4c554d" FontFamily="NataSans"/>
+                    <Label Grid.Row="1" Text="{Binding PendingRowsCount}" TextColor="#4c554d" FontFamily="NataSans" FontSize="17"/>
+                    <sparkchart:SfSparkAreaChart Grid.Row="3" ItemsSource="{Binding KitchenLoadData}" YBindingPath="Load"
+                                     Fill="#B5E5D7" Stroke="#6CAA9C" StrokeWidth="2"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="3" ColumnDefinitions="*,*" ColumnSpacing="5">
+
+            <!-- Deliveries -->
+            <Border Grid.Column="0" BackgroundColor="#E5F5EA" Padding="10" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                <Grid RowDefinitions="Auto,Auto,*" RowSpacing="8">
+                    <Label Text="Deliveries" FontSize="15" TextColor="#4c554d" FontFamily="NataSans"/>
+                    <Label Grid.Row="1" Text="{Binding DeliveriesRowsCount}" TextColor="#4c554d" FontFamily="NataSans" FontSize="17"/>
+                    <sparkchart:SfSparkColumnChart Grid.Row="2" HighPointFill="#71C4BE" ItemsSource="{Binding DeliveriesData}" Fill="#008A87"
+                                      YBindingPath="Deliveries"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" BackgroundColor="#E5F5EA" Padding="10" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                <Grid RowDefinitions="Auto,*" RowSpacing="8">
+                    <Label Text="Performance Trend" FontSize="15" TextColor="#4c554d" FontFamily="NataSans" Margin="0,0,10,0"/>
+                    <sparkchart:SfSparkWinLossChart Grid.Row="1" ItemsSource="{Binding WinLossData}" YBindingPath="Value" 
+                  NeutralPointFill="#066B82" NegativePointsFill="#F08650" PositivePointsFill="#098C8B"/>
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        <!-- Orders Table -->
+        <Border Grid.Row="4" BackgroundColor="#E8F9F9" Padding="15" 
+                    StrokeThickness="0" StrokeShape="RoundRectangle 10">
+            <Grid RowDefinitions="Auto,*">
+                <Label Text="Order Details" FontSize="15" TextColor="#4c554d" FontFamily="NataSans" />
+
+                <CollectionView Grid.Row="1" ItemsSource="{Binding OrdersData}"  Margin="4" VerticalScrollBarVisibility="Never"
+                                VerticalOptions="Fill" SelectionMode="None">
+
+                    <CollectionView.Header>
+                        <Grid ColumnDefinitions="2*,2*,2*,2*" Padding="5,8,5,8" >
+                            <Grid.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#ACD5CB" Offset="0.0"/>
+                                    <GradientStop Color="#75C5BD" Offset="0.5"/>
+                                    <GradientStop Color="#3DA2B5" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                            <Label Text="Time" Grid.Column="0" TextColor="#004D4D" FontFamily="NataSans"/>
+                            <Label Text="Order Type" Grid.Column="1" TextColor="#004D4D" FontFamily="NataSans"/>
+                            <Label Text="Table / Order" Grid.Column="2" TextColor="#004D4D" FontFamily="NataSans"/>
+                            <Label Text="Amount" Grid.Column="3" TextColor="#004D4D" FontFamily="NataSans" HorizontalTextAlignment="End"/>
+                        </Grid>
+                    </CollectionView.Header>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="2*,2*,2*,2*" ColumnSpacing="5">
+                                <!-- Time (12-hour format) -->
+                                <Label Text="{Binding TimeStamp, StringFormat='{}{0:hh:mm tt}'}" Grid.Column="0" VerticalOptions="Center"/>
+
+                                <!-- Order Type -->
+                                <Label Grid.Column="1" TextColor="#333333" Text="{Binding Channel}" VerticalOptions="Center"/>
+
+                                <!-- Table/Order Reference -->
+                                <Label Grid.Column="2" TextColor="#333333" Text="{Binding Reference}" VerticalOptions="Center"/>
+
+                                <!-- Amount -->
+                                <Label Grid.Column="3" TextColor="#333333" Text="{Binding Amount, StringFormat='{}{0:C}'}" VerticalOptions="Center" HorizontalTextAlignment="End"/>
+
+                                <!-- Row Separator -->
+                                <BoxView Grid.ColumnSpan="4" VerticalOptions="End" HeightRequest="1" Color="#E0E0E0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Border>
+    </Grid>
+
+</ContentPage>
