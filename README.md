@@ -34,4 +34,4 @@ Today we are going to visualize four compact trends that provide quick insights 
 ### Path Too Long Exception
 If you are facing a "Path too long" exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.
 
-For a detailed step-by-step guide with relevant code snippets, refer to the [.NET MAUI Toolkit Spark Chart to Visualize a Restaurant Management Dashboard Blog]().
+For a detailed step-by-step guide with relevant code snippets, refer to the [.NET MAUI Toolkit Spark Chart to Visualize a Restaurant Management Dashboard Blog](https://www.syncfusion.com/blogs/post/build-restaurant-dashboard-dotnet-maui).
